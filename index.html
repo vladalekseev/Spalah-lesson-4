@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    //З А М Ы К А Н И Е
+
+/*
+function counter(num)  {
+    var countstart = num;
+    return function count() {
+        countstart++;
+        return countstart;
+    }
+};
+
+var test1 = counter(2);
+    console.log(test1());
+    console.log(test1());
+    console.log(test1());
+*/
+
+
+
+/*
+var myArr = [1,2,3,4,5,6];
+var some;
+
+function addSome(arr) {
+    var num = arr || [];
+    return function pushArr(arg) {
+        if(arg) {
+            num.push(arg);
+            return num;
+        }
+        else {
+            return num;
+        }
+    }
+}
+
+var test = addSome(myArr);
+var test2 = addSome(some);
+    console.log(test(122));
+    console.log(test());
+    console.log(test());
+    console.log(test(1222));
+    console.log(test2(12));
+*/
+
+
+
+/*
+var obj = {
+    name : "Vlad",
+    age : 20
+};
+
+for(var key in obj) {
+    console.log(obj[key]);
+}
+*/
+
+/*
+    var obj = {
+        name : "Vlad",
+        age : 20
+    };
+
+    var a  = Object.create(obj);
+
+    for(var key in a) {
+        if(a.hasOwnProperty(key)) {
+            console.log(key);
+        }
+        else {
+            console.log(key + " не собств ");
+        }
+    }
+*/
+
+/*
+    var obj = {
+        name : "Vlad",
+        age : 20
+    };
+
+    var a  = Object.create(obj, {           //1й параметр (наследуется ли от какого-то обьекта(null если нет))
+        room : {
+            value: "big",
+            enumerable: true,        //собственное свойство  выводится на глаза
+            writable : true,          //можно ли переписать это свойство
+            configurable: true       //можно ли удалять,перенастороить свойство
+        },
+        home : {
+            value: "huge",
+            enumerable: true
+        }
+    });
+
+    console.log(a);
+
+    Object.defineProperty(a, "room", {      //переопределение настроек уже сущ свойства или добавляет его
+        value: "not bog",
+        writable: false
+    });
+
+
+    Object.defineProperties(a, {            //ко всем свойсвам
+       new_1: {
+           value : "not big one"
+       }
+    });
+
+
+    console.log(a);
+*/
+
+
+/*
+var laptop = Object.create({}, {
+    SSD : {
+        value: "128gb",
+        enumerable: true,
+        writable: true,
+        configurable: true
+    },
+    CPU : {
+        value: "Core i5",
+        enumerable: true,
+        writable: true,
+        configurable: true
+    },
+    Graphic : {
+        value : "5500",
+        enumerable: true,
+        writable: true,
+        configurable: true
+    }
+});
+
+    Object.defineProperty(laptop, "VideoCard", {
+       value:  "nvidea",
+        enumerable: true,
+        writable: true,
+        configurable: true
+    });
+
+    var Mac = Object.create(laptop,{
+       year: {
+           value: "2015",
+           enumerable: true,
+           writable: true,
+           configurable: true
+       },
+       model : {
+           value : "Air",
+           enumerable: true,
+           writable: true,
+           configurable: true
+       },
+       fullinfo : {
+           set: function(value) {
+               var data = value.split(" ");
+               this.year = data[0];
+               this.model = data[1];
+           },
+           get: function(){
+               return this.year + " " + this.model;
+           }
+       }
+    });
+
+
+console.log(Mac);
+*/
+
+
+/*
+var obj = Object.create(null , {
+    name : {
+        value: "Vlad",
+        writable: true
+    },
+    lastname : {
+        value: "Alekseev",
+        writable: true
+    },
+    fullname: {
+        set : function(value){
+            var data = value.split(" ");
+            this.name = data[0];
+            this.lastname = data[1];
+
+        },
+        get: function(){
+            return this.name + " " + this.lastname;
+        }
+    }
+});
+    obj.fullname = "leb Rud";
+    console.log(obj.fullname);
+    console.log(obj);
+*/
+
+
+
+
+/*
+function Car(car_name) {
+    this.name = car_name;
+    var color = "White";
+    Object.defineProperty(this, 'color', {
+        set: function(value) {
+            color = value;
+        },
+        get: function() {
+            return color;
+        }
+    })
+};
+
+var Ford  = new Car("Ford");
+var BMW  = new Car("BMw");
+BMW.color = "Blue";
+
+    console.log(Ford);
+    console.log(BMW);
+    console.log(BMW.color);
+*/
+
+
+/*
+
+function Laptop(size) {
+    this.size = size;
+    Object.defineProperty(this , 'size', {
+        set : function(value) {
+            if(value > 25) {
+                size = value;
+            }
+        },
+        get: function() {
+            return size;
+        }
+    })
+};
+
+var Mac = new Laptop(5);
+var Asus = new Laptop(50);
+var Dell = new Laptop(100);
+
+Mac.size = 25;
+    console.log(Mac.size);
+    console.log(Asus.size);
+    console.log(Dell.size);
+*/
+
+
+//Н А С Л Е Д О В А Н И Я
+
+/*
+function A() {};
+A.prototype.num = 7;
+
+function B() {
+    this.who = "Vlad"
+};
+function C() {
+    this.info = this.who + " "  + this.num;
+};
+
+B.prototype = Object.create(A.prototype);
+C.prototype = new B();
+    var some = new C();
+
+    console.log(some.info);
+*/
+
+    function A() {
+        this.name = "Vlad";
+    };
+
+    function B() {
+        this.lastname = "Alekseev";
+    };
+    function C() {
+        this.fathername = "Viktor";
+    };
+
+    function Full() {
+        this.fullname = this.name + this.lastname + this.fathername;
+    };
+
+    B.prototype = new A();
+    C.prototype = new B();
+    Full.prototype = new C();
+
+    var some = new Full;
+    console.log(some.fullname);
+
+
+
+</script>
+</body>
+</html>
